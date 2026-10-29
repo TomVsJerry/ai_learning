@@ -10,6 +10,7 @@
 | --- | --- |
 | [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
 | [02-softmax.md](02-softmax.md) | 阶段 2：用匹配分讲指数、归一化、饱和，以及为什么要除以 √d_k |
+| [03-linear-relu-embedding.md](03-linear-relu-embedding.md) | 阶段 3：线性层的底分、ReLU 把负数清零、词编号查表得到向量 |
 | [prerequisites.md](prerequisites.md) | 读模型之前要会的技能、形状自测，以及读到后面再补的内容 |
 | [attention-is-all-you-need.md](attention-is-all-you-need.md) | 按论文章节写的导读：架构、注意力、训练、实验结果 |
 
@@ -23,7 +24,7 @@
 | --- | --- | --- | --- | --- |
 | [ ] | 1. 矩阵与点积 | 由行列数写出乘积形状；说明点积大表示方向更接近 | [细读](01-matrix-and-dot-product.md)、[过关标准](prerequisites.md#stage-matrix) | |
 | [ ] | 2. Softmax | 写出 exp 再归一化；说明输入差很大时梯度接近 0 | [细读](02-softmax.md)、[过关标准](prerequisites.md#stage-softmax) | |
-| [ ] | 3. 线性层、ReLU、词嵌入 | 写出 `y = xW + b` 和 `max(0, ·)`；说明 token 查表得到向量 | [前置：线性层](prerequisites.md#stage-linear) | |
+| [ ] | 3. 线性层、ReLU、词嵌入 | 写出 `y = xW + b` 和 `max(0, ·)`；说明 token 查表得到向量 | [细读](03-linear-relu-embedding.md)、[过关标准](prerequisites.md#stage-linear) | |
 | [ ] | 4. 残差与 LayerNorm | 写出 `LayerNorm(x + Sublayer(x))`，并说明各子层宽度必须相同 | [前置：残差](prerequisites.md#stage-residual) | |
 | [ ] | 5. 编码器–解码器 | 说明训练时解码器看到已给定前缀，预测下一个词 | [前置：序列模型](prerequisites.md#stage-seq2seq) | |
 | [ ] | 6. 加权求和式注意力 | 说明权重来自查询和键的匹配，输出是值向量的加权和 | [前置：注意力定义](prerequisites.md#stage-attention) | |

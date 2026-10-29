@@ -46,6 +46,8 @@ Softmax ────┘               └─ 残差与 LayerNorm ─────
 
 会写 `y = xW + b`，以及 `max(0, ·)`。知道 token 编号查表得到一行向量，这张表是参数。
 
+细读和手算例子在 [03-linear-relu-embedding.md](03-linear-relu-embedding.md)。
+
 用在三套投影和
 
 ```text
