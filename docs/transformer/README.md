@@ -8,6 +8,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
+| [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
 | [prerequisites.md](prerequisites.md) | 读模型之前要会的技能、形状自测，以及读到后面再补的内容 |
 | [attention-is-all-you-need.md](attention-is-all-you-need.md) | 按论文章节写的导读：架构、注意力、训练、实验结果 |
 
@@ -19,7 +20,7 @@
 
 | 状态 | 阶段 | 过关时要能做到 | 对照 | 备注 |
 | --- | --- | --- | --- | --- |
-| [ ] | 1. 矩阵与点积 | 由行列数写出乘积形状；说明点积大表示方向更接近 | [前置：矩阵](prerequisites.md#stage-matrix) | |
+| [ ] | 1. 矩阵与点积 | 由行列数写出乘积形状；说明点积大表示方向更接近 | [细读](01-matrix-and-dot-product.md)、[过关标准](prerequisites.md#stage-matrix) | |
 | [ ] | 2. Softmax | 写出 exp 再归一化；说明输入差很大时梯度接近 0 | [前置：Softmax](prerequisites.md#stage-softmax) | |
 | [ ] | 3. 线性层、ReLU、词嵌入 | 写出 `y = xW + b` 和 `max(0, ·)`；说明 token 查表得到向量 | [前置：线性层](prerequisites.md#stage-linear) | |
 | [ ] | 4. 残差与 LayerNorm | 写出 `LayerNorm(x + Sublayer(x))`，并说明各子层宽度必须相同 | [前置：残差](prerequisites.md#stage-residual) | |

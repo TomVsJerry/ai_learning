@@ -30,7 +30,7 @@ Softmax ────┘               └─ 残差与 LayerNorm ─────
 
 给定两个矩阵的行列数，能写出乘积的形状；知道点积大表示方向更接近。
 
-用在 `QKᵀ` 为什么是 `n×n`，以及 `W^Q` 为什么是 `d_model×d_k`。
+细读和手算例子在 [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md)。用在 `QKᵀ` 为什么是 `n×n`，以及 `W^Q` 为什么是 `d_model×d_k`。
 
 <a id="stage-softmax"></a>
 
