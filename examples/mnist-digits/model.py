@@ -15,10 +15,12 @@ from torch import nn
 class DigitClassifier(nn.Module):
     def __init__(self, hidden_size: int = 128):
         super().__init__()
-        # W1 的形状是 784×128，b1 的长度是 128。
+        # 笔记写成 y = x W1 + b1。按这个写法，W1 是 784×128，b1 长度是 128。
+        # PyTorch 把同一份数存成 weight，形状是 (128, 784)，计算时先转置再乘。
         # 每一格亮度都按自己的权重混进每一个检测。
         self.hidden = nn.Linear(28 * 28, hidden_size)
-        # W2 的形状是 128×10，b2 的长度是 10。
+        # 笔记里的 W2 是 128×10，b2 长度是 10。
+        # PyTorch 的 weight 形状是 (10, 128)。
         # 10 个分数分别是「像 0」到「像 9」。
         self.output = nn.Linear(hidden_size, 10)
 
