@@ -12,6 +12,7 @@
 | [02-softmax.md](02-softmax.md) | 阶段 2：用匹配分讲指数、归一化、饱和，以及为什么要除以 √d_k |
 | [03-linear-relu-embedding.md](03-linear-relu-embedding.md) | 阶段 3：线性层的底分、ReLU 把负数清零、词编号查表得到向量 |
 | [04-residual-layernorm.md](04-residual-layernorm.md) | 阶段 4：在原向量上加修改，再按这一杯自己的平均和标准差拉回同一尺度 |
+| [transformer-and-neural-networks.md](transformer-and-neural-networks.md) | Transformer 是神经网络的一种接法，对照全连接、循环网络和卷积网络 |
 | [prerequisites.md](prerequisites.md) | 读模型之前要会的技能、形状自测，以及读到后面再补的内容 |
 | [attention-is-all-you-need.md](attention-is-all-you-need.md) | 按论文章节写的导读：架构、注意力、训练、实验结果 |
 
