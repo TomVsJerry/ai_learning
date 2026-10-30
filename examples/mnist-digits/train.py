@@ -137,6 +137,10 @@ def main():
 
     show_one_prediction(model, test_loader)
 
+    weights_path = Path(__file__).resolve().parent / "digit.pt"
+    torch.save(model.state_dict(), weights_path)
+    print(f"权重已写到 {weights_path}")
+
 
 if __name__ == "__main__":
     main()
