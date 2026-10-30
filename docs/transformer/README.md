@@ -9,6 +9,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | [00-neural-network-framework.md](00-neural-network-framework.md) | 人工神经网络从头到尾的一条流水线：同一套权重判断两杯饮料喜不喜欢 |
+| [../../examples/mnist-digits/README.md](../../examples/mnist-digits/README.md) | 可运行的手写数字项目：784 个亮度，10 个数字的百分比 |
 | [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
 | [02-softmax.md](02-softmax.md) | 阶段 2：用匹配分讲指数、归一化、饱和，以及为什么要除以 √d_k |
 | [03-linear-relu-embedding.md](03-linear-relu-embedding.md) | 阶段 3：线性层的底分、ReLU 把负数清零、词编号查表得到向量 |
