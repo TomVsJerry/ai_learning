@@ -62,6 +62,8 @@ FFN(x) = max(0, x W1 + b1) W2 + b2
 
 会写 `LayerNorm(x + Sublayer(x))`；知道归一化是为了让深层加得动。
 
+细读和手算例子在 [04-residual-layernorm.md](04-residual-layernorm.md)。
+
 每个子层外面都有这一层，因此所有子层宽度必须同为 `d_model`。
 
 <a id="stage-seq2seq"></a>
