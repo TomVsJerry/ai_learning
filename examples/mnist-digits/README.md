@@ -6,8 +6,11 @@
 
 ```text
 pip install -r requirements.txt
+python pytorch_tour.py
 python train.py --epochs 2
 ```
+
+`pytorch_tour.py` 用奶茶网络的手算数字走一遍张量、线性层、损失、反传和 Adam，不下载 MNIST。概念说明在 [docs/transformer/pytorch.md](../../docs/transformer/pytorch.md)。
 
 第一次运行会把 MNIST 下载到 `data/`。这个目录不提交进 git。
 
