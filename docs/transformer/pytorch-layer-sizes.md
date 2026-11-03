@@ -95,6 +95,28 @@ nn.Linear(n_h, n_out)   # Linear(5, 1)：5 个检测收成 1 个分数
 
 对照脚本是 [linear_call.py](../../examples/pytorch/lesson2/linear_call.py)。它会打出小明的 `[6.0, 8.0]` 和热浓茶的 `[-4.0, 0.0]`。
 
+<a id="grad-record"></a>
+
+## `requires_grad` 和 `no_grad`
+
+这两个开关管两件不同的事。
+
+`requires_grad` 贴在某一个张量上。`True` 表示：如果后面的损失用到了它，并且那次计算留下了记录，`backward` 就可以把梯度填进它的 `.grad`。`Linear` 创建的 `weight` 和 `bias` 默认就是 `True`。小明这杯输入 `[8, 2, 6]` 是数据，`requires_grad` 是 `False`，训练不改这杯饮料本身。
+
+`torch.no_grad()` 是一小段代码的模式。缩进里面的乘法、加法不写记录。这段模式结束之后，`weight.requires_grad` 仍是 `True`。它没有把参数上的开关关掉，只是这一段运算不记账。
+
+记账记的是「这个结果是用哪一次乘法算出来的」。块外调用 `layer(小明)`，清爽 6 上面带着一条记录，名字是 `AddmmBackward0`，也就是这一次矩阵乘。把损失就定成清爽这一格，再 `backward`：
+
+```text
+清爽 = 0×8 + 1×2 + 0.5×6 + 1
+```
+
+底分的梯度是 `[1, 0]`：清爽的底分加 1，清爽就加 1；甜腻的底分没有进这格，梯度是 0。第 0 行权重的梯度是 `[8, 2, 6]`，也就是甜、冰、茶本身。某一格权重加一点点，清爽的变化量等于对应的那一项原料。
+
+同一句 `layer(小明)` 写进 `with torch.no_grad():` 里，结果上的记录是空的。没有记录，`backward` 就没有路可走，`.grad` 也不会被这次前向填上。
+
+`linear_call.py` 里的 `copy_` 放在 `no_grad` 里面，是因为那一步只是把系数改成 `0, 1, 0.5`。这次写入不参加「损失对权重的导数」。参数对象还是原来的那个，`requires_grad` 仍是 `True`，所以块外面的真正前向还能记账。对照脚本是 [grad_record.py](../../examples/pytorch/lesson2/grad_record.py)。
+
 <a id="sigmoid"></a>
 
 ## Sigmoid 和这一份损失
