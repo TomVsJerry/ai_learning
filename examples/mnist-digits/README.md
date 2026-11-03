@@ -6,8 +6,12 @@
 
 ```text
 pip install -r requirements.txt
+python tensor_tour.py
+python pytorch_tour.py
 python train.py --epochs 2
 ```
+
+`tensor_tour.py` 只看张量的轴和下标，说明在 [docs/transformer/pytorch-tensor.md](../../docs/transformer/pytorch-tensor.md)。`pytorch_tour.py` 用奶茶网络的手算数字走一遍线性层、损失、反传和 Adam。训练循环的说明在 [docs/transformer/pytorch.md](../../docs/transformer/pytorch.md)。
 
 第一次运行会把 MNIST 下载到 `data/`。这个目录不提交进 git。
 
