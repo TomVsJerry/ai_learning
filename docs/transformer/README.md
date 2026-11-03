@@ -13,6 +13,7 @@
 | [pytorch-foundations.md](pytorch-foundations.md) | 理解 PyTorch 的两层框架：人工神经网络的概念，以及库里装这些概念的对象 |
 | [pytorch-tensor.md](pytorch-tensor.md) | 张量的轴和下标：从甜、冰、茶到一批小图 |
 | [pytorch.md](pytorch.md) | 用奶茶数字把 `train.py` 里的张量、模型、批次、损失、反传和 Adam 对上 |
+| [pytorch-layer-sizes.md](pytorch-layer-sizes.md) | `n_in`、`n_h`、`n_out`、`batch_size` 各管哪根轴，以及 Sigmoid 加均方误差的小网络 |
 | [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
 | [02-softmax.md](02-softmax.md) | 阶段 2：用匹配分讲指数、归一化、饱和，以及为什么要除以 √d_k |
 | [03-linear-relu-embedding.md](03-linear-relu-embedding.md) | 阶段 3：线性层的底分、ReLU 把负数清零、词编号查表得到向量 |
