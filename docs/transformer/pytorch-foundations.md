@@ -4,7 +4,7 @@ PyTorch 是一个 Python 库。它负责把数放进张量、按层算出分数�
 
 所以框架分成两层。左边是人工神经网络里的概念，右边是 PyTorch 用来装它的对象。读 `examples/mnist-digits/train.py` 时，每一行都能落进其中一格。
 
-细读仍放在原来的笔记里：网络流水线见 [00-neural-network-framework.md](00-neural-network-framework.md)，张量的下标见 [pytorch-tensor.md](pytorch-tensor.md)，`train.py` 里的调用见 [pytorch.md](pytorch.md)。
+细读仍放在原来的笔记里：网络流水线见 [00-neural-network-framework.md](00-neural-network-framework.md)，张量的下标见 [pytorch-tensor.md](pytorch-tensor.md)，`train.py` 里的调用见 [pytorch.md](pytorch.md)。对着 `train.py` 看 Python 写法和每一批张量的形状，见 [语法和张量.md](../../examples/mnist-digits/语法和张量.md)。
 
 <a id="map"></a>
 
