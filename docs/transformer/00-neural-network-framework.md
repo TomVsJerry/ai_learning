@@ -2,7 +2,7 @@
 
 用同一套零件判断一杯饮料会不会被喜欢。数字是为了手算选定的，不是训练出来的结果。训练要做的事是改这些数字。
 
-回到 [规划表](README.md)。线性层、ReLU、Softmax 的细节分别在 [03](03-linear-relu-embedding.md) 和 [02](02-softmax.md)。
+回到 [规划表](README.md)。线性层、ReLU、Softmax 的细节分别在 [03](03-linear-relu-embedding.md) 和 [02](02-softmax.md)。这些概念怎样对应到 PyTorch 的对象，写在 [pytorch-foundations.md](pytorch-foundations.md)。
 
 <a id="frame"></a>
 

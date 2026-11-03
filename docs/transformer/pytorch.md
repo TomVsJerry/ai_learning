@@ -1,6 +1,6 @@
 # PyTorch：读数字项目里的那些对象
 
-`examples/mnist-digits/train.py` 是一条训练。PyTorch 把这条训练拆成几类对象：张量、模型、数据批、损失、优化器。下面按 `train.py` 真正调用的顺序说明。手算用奶茶网络里的小明 `[8, 2, 6]`，和 [框架笔记](00-neural-network-framework.md) 同一组权重。读数字项目只是把 3 个数换成 784 个亮度，把 2 个分数换成 10 个分数。
+`examples/mnist-digits/train.py` 是一条训练。PyTorch 把这条训练拆成几类对象：张量、模型、数据批、损失、优化器。这些对象各自对应人工神经网络里的哪一格，先看 [基础框架](pytorch-foundations.md)。下面按 `train.py` 真正调用的顺序说明。手算用奶茶网络里的小明 `[8, 2, 6]`，和 [框架笔记](00-neural-network-framework.md) 同一组权重。读数字项目只是把 3 个数换成 784 个亮度，把 2 个分数换成 10 个分数。
 
 可运行的对照脚本是 [pytorch_tour.py](../../examples/mnist-digits/pytorch_tour.py)。在 `examples/mnist-digits` 里执行 `python pytorch_tour.py`，打印出来的数和下面相同。它不下载 MNIST。
 

@@ -10,6 +10,7 @@
 | --- | --- |
 | [00-neural-network-framework.md](00-neural-network-framework.md) | 人工神经网络从头到尾的一条流水线：同一套权重判断两杯饮料喜不喜欢 |
 | [../../examples/mnist-digits/README.md](../../examples/mnist-digits/README.md) | 可运行的手写数字项目：784 个亮度，10 个数字的百分比 |
+| [pytorch-foundations.md](pytorch-foundations.md) | 理解 PyTorch 的两层框架：人工神经网络的概念，以及库里装这些概念的对象 |
 | [pytorch-tensor.md](pytorch-tensor.md) | 张量的轴和下标：从甜、冰、茶到一批小图 |
 | [pytorch.md](pytorch.md) | 用奶茶数字把 `train.py` 里的张量、模型、批次、损失、反传和 Adam 对上 |
 | [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
