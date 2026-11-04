@@ -24,3 +24,9 @@ each = bce(logits, binary_targets)
 print("BCEWithLogits 两条", [round(v, 6) for v in each.tolist()])
 print("BCEWithLogits 平均", each.mean().item())
 print("内部 Sigmoid", [round(v, 6) for v in torch.sigmoid(logits).tolist()])
+
+print("BCE(3.2, 1) 与 CE([3.2, 0], 类别 0)")
+print(
+    nn.BCEWithLogitsLoss()(torch.tensor([3.2]), torch.tensor([1.0])).item(),
+    nn.CrossEntropyLoss()(torch.tensor([[3.2, 0.0]]), torch.tensor([0])).item(),
+)
