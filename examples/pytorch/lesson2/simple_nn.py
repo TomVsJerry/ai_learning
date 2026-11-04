@@ -36,10 +36,12 @@ def main() -> None:
     fill(model)
     print(model)
     features = torch.tensor([[8.0, 2.0], [0.0, -6.0]])
+    # 构造已在 SimpleNN() 完成。这里走 Module.__call__，张量传入 forward。
     by_call = model(features)
     by_forward = model.forward(features)
     print("输入形状", tuple(features.shape))
     print("输出形状", tuple(by_call.shape))
+    # (2, 1) 收成一根轴，再变成 Python 列表 [2.0, 0.0]。
     print("model(x)", by_call.view(-1).tolist())
     print("model.forward(x) 相同", torch.equal(by_call, by_forward))
     for name, value in model.named_parameters():
