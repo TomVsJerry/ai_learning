@@ -16,6 +16,7 @@
 | [pytorch-layer-sizes.md](pytorch-layer-sizes.md) | `n_in`、`n_h`、`n_out`、`batch_size` 各管哪根轴，以及 Sigmoid 加均方误差的小网络 |
 | [pytorch-activation.md](pytorch-activation.md) | ReLU、Sigmoid、Tanh 写在两层之间时，怎样改写交给下一层的数 |
 | [pytorch-loss.md](pytorch-loss.md) | 均方误差、交叉熵、二分类交叉熵：把输出和答案收成一个数 |
+| [pytorch-optimizer.md](pytorch-optimizer.md) | SGD 和 Adam：梯度填好之后，`step()` 怎样改每一个参数 |
 | [01-matrix-and-dot-product.md](01-matrix-and-dot-product.md) | 阶段 1：用奶茶口味和步行方向讲向量、点积、转置和矩阵形状 |
 | [02-softmax.md](02-softmax.md) | 阶段 2：用匹配分讲指数、归一化、饱和，以及为什么要除以 √d_k |
 | [03-linear-relu-embedding.md](03-linear-relu-embedding.md) | 阶段 3：线性层的底分、ReLU 把负数清零、词编号查表得到向量 |
