@@ -137,6 +137,47 @@ w ← 1.12 − 0.01×(−22.8) = 1.348
 
 `weight_decay=0.1` 时 float32 打出来是 1.11899996。`momentum=0.9` 的第二步 float32 是 1.34800005。`nesterov=True` 且 `momentum=0.9` 时，第一步的方向变成梯度再加上动量乘速度，同一组数第一步是 1.228。
 
+<a id="sgd-args"></a>
+
+### 构造参数
+
+当前环境是 PyTorch 2.15.0。只有 `params` 必填。`maximize`、`foreach`、`differentiable`、`fused` 写在 `*` 后面，必须用名字传入。
+
+```python
+optim.SGD(
+    params,                  # 必填
+    lr=0.001,
+    momentum=0,
+    dampening=0,
+    weight_decay=0,
+    nesterov=False,
+    maximize=False,          # 以下四个只能用名字
+    foreach=None,
+    differentiable=False,
+    fused=None,
+)
+```
+
+`params` 是要改的参数，传 `model.parameters()` 或一列张量。也可以传若干字典，给不同的参数组各自的 `lr`。
+
+`lr` 默认 0.001。这个例子传的是 0.01。它可以是数，或只有一个元素的张量，并且必须 ≥ 0。
+
+`momentum` 默认 0。0 时方向就是梯度。0.9 时第二步用速度 −22.8，`w` 变成 1.348。
+
+`dampening` 默认 0。第二步起，新梯度乘 `(1 − dampening)` 再加进速度。`momentum=0.9`、`dampening=0.5`、梯度仍是 −12 时，第二步速度是 `0.9×(−12) + 0.5×(−12) = −16.8`，`w` 变成 1.288。float32 是 1.28799999。
+
+`weight_decay` 默认 0，可以是数或张量。0.1 时方向先变成 −11.9，`w` 变成 1.119。
+
+`nesterov` 默认 False。True 要求 `momentum > 0` 且 `dampening = 0`，否则构造时直接报错。同一组数第一步是 1.228。
+
+`maximize` 默认 False。True 时先把梯度取反，再做同一个减法。梯度 −12、学习率 0.01 时，`w ← 1 − 0.01×12 = 0.88`。float32 是 0.879999995。
+
+`foreach` 默认 None。参数都在 CUDA 上时走批量实现。这份 CPU 环境走逐个参数的循环，结果和上面的手算相同。
+
+`differentiable` 默认 False。`step()` 在 `no_grad` 里跑。True 时这次更新本身还可以继续反传。
+
+`fused` 默认 None，也就是不开。True 时用融合内核。它不能和 `foreach=True` 同时开，也不能和 `differentiable=True` 同时开。
+
 <a id="adam"></a>
 
 ## Adam
