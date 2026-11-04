@@ -57,6 +57,65 @@ class TeaNet(nn.Module):
         return self.output(detected)
 ```
 
+<a id="class"></a>
+
+## `class SimpleNN(nn.Module)`
+
+```python
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super(SimpleNN, self).__init__()
+        self.fc1 = nn.Linear(2, 2)
+        self.fc2 = nn.Linear(2, 1)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+model = SimpleNN()
+y = model(x)
+```
+
+`class SimpleNN(nn.Module)` 定义一种新的模型。括号里的 `nn.Module` 是它的父类。`SimpleNN` 因此带上父类已经写好的能力：登记参数、`train()`、`eval()`、`state_dict()`，以及「把实例当函数调用」。
+
+`__init__` 在 `SimpleNN()` 创建实例时执行一次。`super(SimpleNN, self).__init__()` 先让父类把自己的登记表准备好。后面两行 `self.fc1 = ...`、`self.fc2 = ...` 才把两个线性层写进这张表。`fc1`、`fc2` 只是自己起的名字。读数字模型里的 `self.hidden`、`self.output` 是同一写法。
+
+`def forward(self, x)` 定义前向方法。
+
+- `def` 开始一个方法。
+- `self` 是这一份模型。`self.fc1` 就是上面登记的第一层。
+- `x` 是调用时传进来的输入张量。形状是 `(批量, 2)`，因为 `fc1` 要 2 个特征。
+- 方法里的 `x = ...` 用同一个名字接住上一层的输出。第一行之后，`x` 是 ReLU 之后的两个检测；第二行之后，`x` 是一个预测值。
+- `return x` 把最后这一排数交回调用者。这就是网络的输出。
+
+使用分两步。先 `model = SimpleNN()`，权重在这一步建出来，一份模型可以反复用。再 `y = model(x)`。这个括号调用走的是父类的 `__call__`，它再进入你写的 `forward`。`model.forward(x)` 直接执行同一个方法，数值相同。训练循环里写的是 `model(x)`。
+
+把系数填成可以手算的数：`fc1` 的两行是 `[0, 1]` 和 `[1, 0]`，底分 `[1, 0]`；`fc2` 的一行是 `[0.4, 0.1]`，底分 `0`。输入两行 `[[8, 2], [0, −6]]`：
+
+```text
+第一行  8, 2
+  检测 = [0×8 + 1×2 + 1,  1×8 + 0×2 + 0] = [3, 8]
+  ReLU 之后仍是 [3, 8]
+  输出 = 0.4×3 + 0.1×8 + 0 = 2
+
+第二行  0, −6
+  检测 = [0×0 + 1×(−6) + 1,  1×0 + 0×(−6) + 0] = [−5, 0]
+  ReLU 之后是 [0, 0]
+  输出 = 0
+```
+
+输出形状是 `(2, 1)`。`print(model)` 打印的是结构，不是这些系数：
+
+```text
+SimpleNN(
+  (fc1): Linear(in_features=2, out_features=2, bias=True)
+  (fc2): Linear(in_features=2, out_features=1, bias=True)
+)
+```
+
+参数名是 `fc1.weight`、`fc1.bias`、`fc2.weight`、`fc2.bias`。对照脚本是 [simple_nn.py](../../examples/pytorch/lesson2/simple_nn.py)。
+
 `named_parameters()` 列出要训练的张量。奶茶网络是四份：
 
 | 名字 | 形状 | 对应笔记 |
