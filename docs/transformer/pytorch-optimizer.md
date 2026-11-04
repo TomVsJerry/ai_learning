@@ -11,6 +11,36 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 对照脚本是 [optimizers.py](../../examples/pytorch/lesson2/optimizers.py)。
 
+<a id="example"></a>
+
+## 这个示例里只有一个参数
+
+`OneWeight` 的前向是 `分数 = 3w`，损失是 `(分数 − 5)²`。`w` 从 1 出发。SGD 和 Adam 各用这个公式走一步，所以两边的分数、损失、梯度相同，不同的是 `step()` 怎么改 `w`。
+
+```python
+self.w = nn.Parameter(torch.tensor([1.0]))
+```
+
+`torch.tensor([1.0])` 是形状 `(1,)` 的张量，里面的数是 1。`nn.Parameter` 把它标成模块的可训练参数：`requires_grad` 为 `True`，并且出现在 `model.parameters()` 里。直接把普通张量赋给 `self.t`，那份张量不进入这份名单，优化器也不会改它。
+
+```python
+optimizer = optimizer_cls(model.parameters(), lr=0.01)
+```
+
+`optimizer_cls` 是类本身，第一次调用时是 `SGD`，第二次是 `Adam`。括号里两份材料：`model.parameters()` 是要改的张量，这里只有 `w`；`lr=0.01` 是学习率。优化器记下这些张量，`step()` 改的就是它们。
+
+`zero_grad()` 清掉参数上已经记下的梯度。这一版 PyTorch 默认把 `.grad` 设成空，而不是留下一张 0。不清的话，下一次 `backward` 会把新梯度加到旧的上面：第一次是 −12，再反传一次变成 −24。清掉之后再反传一次，又是 −12。
+
+`loss.backward()` 从损失沿着前向的记录往回走，把变化率填进 `w.grad`。这一例的记录是两步：
+
+```text
+分数 = 3 × w = 3
+损失 = (3 − 5)² = 4
+损失对分数的变化率 = 2×(3 − 5) = −4
+分数对 w 的变化率 = 3
+w 的梯度 = −4 × 3 = −12
+```
+
 <a id="loop"></a>
 
 ## 在训练里的位置
