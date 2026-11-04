@@ -77,7 +77,22 @@ model = SimpleNN()
 y = model(x)
 ```
 
-`class SimpleNN(nn.Module)` 定义一种新的模型。括号里的 `nn.Module` 是它的父类。`SimpleNN` 因此带上父类已经写好的能力：登记参数、`train()`、`eval()`、`state_dict()`，以及「把实例当函数调用」。
+`class SimpleNN(nn.Module)` 定义一种新的模型。这一行拆开是：
+
+```text
+class      开始定义类
+SimpleNN   类名
+(nn.Module) 父类，写在括号里
+:          类的内容从下一行缩进开始
+```
+
+括号里的 `nn.Module` 就是继承。`SimpleNN` 的父类名单是 `Module`，一个 `SimpleNN()` 实例同时也是 `nn.Module`。查找方法时先看 `SimpleNN`，没有再看 `Module`，再看 `object`。
+
+Java 里同一句写成 `class SimpleNN extends Module {`。`extends` 标出父类，大括号包住类的内容。Python 把父类放进类名后面的括号，用冒号和缩进代替大括号。Python 的括号里可以写多个父类，例如 `class C(A, B)`。Java 的 `extends` 后面是一个类，额外的接口用 `implements` 另写。
+
+构造也换了写法。Java 的构造方法和类同名，`this` 可以不写出来。Python 的构造方法固定叫 `__init__(self)`，`self` 要写在参数列表里，它就是这份对象。调用父类构造，Java 写 `super();`，这里写 `super(SimpleNN, self).__init__()`。
+
+`SimpleNN` 因此带上父类已经写好的能力：登记参数、`train()`、`eval()`、`state_dict()`，以及「把实例当函数调用」。
 
 `__init__` 在 `SimpleNN()` 创建实例时执行一次。`super(SimpleNN, self).__init__()` 先让父类把自己的登记表准备好。后面两行 `self.fc1 = ...`、`self.fc2 = ...` 才把两个线性层写进这张表。`fc1`、`fc2` 只是自己起的名字。读数字模型里的 `self.hidden`、`self.output` 是同一写法。
 
