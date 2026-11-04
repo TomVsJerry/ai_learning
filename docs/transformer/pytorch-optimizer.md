@@ -35,7 +35,7 @@ optimizer = optimizer_cls(model.parameters(), lr=0.01)
 
 `zero_grad()` 清掉参数上已经记下的梯度。这一版 PyTorch 默认把 `.grad` 设成空，而不是留下一张 0。不清的话，下一次 `backward` 会把新梯度加到旧的上面：第一次是 −12，再反传一次变成 −24。清掉之后再反传一次，又是 −12。
 
-`loss.backward()` 从损失沿着前向的记录往回走，把变化率填进 `w.grad`。这一例的记录是两步：
+`loss.backward()` 从损失沿着前向的记录往回走，把变化率填进 `w.grad`。这一步改的是梯度，`w` 仍是 1。把 1 改成 1.12 或 1.01 的是后面的 `optimizer.step()`。这一例的记录是两步：
 
 ```text
 分数 = 3 × w = 3
