@@ -243,7 +243,7 @@ d(损失)/dw     = −4 × 3 = −12
 
 `2×(3 − 5)` 是损失对分数的变化率，后面的 `3` 是分数对 `w` 的变化率。两步各自怎么量出来，写在 [pytorch-optimizer.md](pytorch-optimizer.md)。
 
-`torch.optim.SGD([w], lr=0.01)` 的一步是：
+`torch.optim.SGD([w], lr=0.01)` 没传动量和权重衰减，一步是：
 
 ```text
 w ← w − 0.01 × (−12) = 1.12
