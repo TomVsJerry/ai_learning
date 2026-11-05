@@ -277,7 +277,34 @@ optimizer.step()               # 改 W、b
 
 ## train、eval 和 no_grad
 
-`model.train()` 把 `model.training` 设为 `True`。`model.eval()` 设为 `False`。`DigitClassifier` 只有线性层和 ReLU，两种模式下前向算式相同。这个开关留给会读它的层：Dropout 在 `train()` 时随机把一些检测清零，在 `eval()` 时保留全部检测。这个项目没有 Dropout，两次调用仍写在循环里，用来标明“正在改参数”和“正在测量”。
+`model.eval()` 把 `model.training` 设成 `False`，并同样设到每一层，比如 `model.hidden.training`。`model.train()` 设回 `True`。这一下不改 `weight` 和 `bias`，也不关掉梯度记录。评估模式下线性层仍是 `2×3 + 0 = 6`，`grad_fn` 仍是 `AddmmBackward0`。不记录梯度的是包在 `evaluate` 外面的 `@torch.no_grad()`。
+
+`DigitClassifier` 只有线性层和 ReLU。同一张全 0 的图，`train()` 和 `eval()` 打出的 10 个分数相同。`train.py` 仍在训练循环里调用 `model.train()`，在 `evaluate` 里调用 `model.eval()`。这个网络的前向算式不看这个开关。
+
+会读这个开关的层，两种模式用不同的算式。`Dropout(p=0.5)` 收到 `[2, 4, 6, 8]`，种子是 0：
+
+```text
+train  [0, 0, 12, 0]
+eval   [2, 4, 6, 8]
+```
+
+`train()` 按 0.5 的概率把一格清成 0，留下来的那格乘 `1 / (1 − 0.5) = 2`，所以 6 变成 12。`eval()` 把四个数原样送出，不再随机清零。
+
+`BatchNorm1d` 收到一批两个数 `1` 和 `3`，缩放是 1，底分是 0。`train()` 用这一批自己的均值 2、方差 1：
+
+```text
+(1 − 2) / √(1 + 1e-5) = −0.999995
+(3 − 2) / √(1 + 1e-5) =  0.999995
+```
+
+同时把累计均值更新成 `0.1×2 = 0.2`，累计方差更新成 `0.9×1 + 0.1×2 = 1.1`。`eval()` 不再用这一批的均值，也不再改累计值，用已经记下的 0.2 和 1.1：
+
+```text
+(1 − 0.2) / √(1.1 + 1e-5) = 0.762767
+(3 − 0.2) / √(1.1 + 1e-5) = 2.669683
+```
+
+所以 `eval()` 的作用是：让 Dropout 停止随机清零，让 BatchNorm 改用累计的均值和方差，并且测试的这一批不再写进那份累计。这个读数字网络没有这两层，调用之后分数不变。
 
 `@torch.no_grad()` 包住 `evaluate`。里面的乘法不记录 `grad_fn`。脚本里同一杯：
 
