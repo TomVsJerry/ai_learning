@@ -255,7 +255,7 @@ e^(−0.7) ≈ 0.4966
 
 **数据三件套。** `Dataset` 按编号取出一个样本，MNIST 返回一张图和一个整数。`ToTensor` 在取出时把亮度从 0～255 收到 0～1，排成 `(1, 28, 28)`。`DataLoader` 把多个样本叠成一批，训练时打乱顺序，测试时不打乱。
 
-**模式和存盘。** `model.train()` 和 `model.eval()` 切换 `training` 这个开关。这个两层网络没有 Dropout，两种模式下前向算式相同。`state_dict()` 是参数名到张量的字典，`torch.save` 把它写成 `digit.pt`。读一张新图时，先按同样结构新建模型，再 `load_state_dict` 把学到的数抄回去。
+**模式和存盘。** `model.train()` 和 `model.eval()` 切换 `training` 这个开关。这个两层网络没有 Dropout，两种模式下前向算式相同。Dropout 和 BatchNorm 会按这个开关换算式，数字写在 [pytorch.md](pytorch.md)。`state_dict()` 是参数名到张量的字典，`torch.save` 把它写成 `digit.pt`。读一张新图时，先按同样结构新建模型，再 `load_state_dict` 把学到的数抄回去。
 
 <a id="walk"></a>
 
