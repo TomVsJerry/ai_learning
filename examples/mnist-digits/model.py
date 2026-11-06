@@ -25,13 +25,15 @@ class DigitClassifier(nn.Module):
         self.output = nn.Linear(hidden_size, 10)
 
     def forward(self, images: torch.Tensor) -> torch.Tensor:
-        # images 进来是 (批量, 1, 28, 28)。
-        # 线性层吃的是一行特征，所以拉成 (批量, 784)。
-        flat = images.view(images.size(0), -1)
+        # images 是 (64, 1, 28, 28)：第 0 轴 64 是这一批有几张图，后面是 1 个通道和 28×28 个亮度。
+        # view 不改亮度的数值，只把每张图排成一行。images.size(0) 保住 64，-1 收成 784。
+        flat = images.view(images.size(0), -1)  # (64, 784)
 
-        # 第一层：y = x W1 + b1。ReLU 把负数改成 0 再送出去。
+        # hidden 对每一行做 y = x W1 + b1：784 个亮度收成 128 个检测。64 行共用同一份 W1、b1。
+        # ReLU 把负数改成 0，形状仍是 (64, 128)。
         detected = torch.relu(self.hidden(flat))
 
-        # 第二层：10 个原始分数。数值越大，越像对应的数字。
+        # output 对每一行做 y = x W2 + b2：128 个检测收成 10 个分数，下标 0 到 9。
+        # 第 0 轴仍是「第几张图」，所以出来是 (64, 10)。
         scores = self.output(detected)
         return scores
